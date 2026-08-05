@@ -1,0 +1,64 @@
+import React, { useState } from 'react';
+
+// USE CASE 2: Find Nearby Hospitals & Emergency Contacts (Ariharan's Module)
+function FindNearbyHospital() {
+  const [filter, setFilter] = useState('All');
+
+  // Dummy Hospital Data with Live Availability Feature
+  const hospitals = [
+    { name: 'City Emergency Hospital', dist: '1.2 km', beds: 5, type: 'ICU', phone: '108' },
+    { name: 'Apollo Trauma Care', dist: '2.5 km', beds: 12, type: 'General', phone: '044-28290200' },
+    { name: 'LifeLine Children Hospital', dist: '3.8 km', beds: 2, type: 'Pediatric', phone: '044-22551111' },
+  ];
+
+  const filteredHospitals = filter === 'All' 
+    ? hospitals 
+    : hospitals.filter(h => h.type === filter);
+
+  return (
+    <div style={{ padding: '20px', border: '2px solid #007bff', borderRadius: '10px', margin: '15px' }}>
+      <h2 style={{ color: '#007bff' }}>🏥 Use Case 2: Nearby Hospital Finder & Live Beds</h2>
+      
+      {/* NEW FEATURE: Filter Hospitals by ICU / Category */}
+      <div style={{ marginBottom: '15px' }}>
+        <label><strong>Filter Specialty: </strong></label>
+        <select onChange={(e) => setFilter(e.target.value)} style={{ padding: '5px', marginLeft: '10px' }}>
+          <option value="All">All Hospitals</option>
+          <option value="ICU">ICU Available</option>
+          <option value="General">General Care</option>
+          <option value="Pediatric">Pediatric</option>
+        </select>
+      </div>
+
+      {/* Hospital Cards List */}
+      <div>
+        {filteredHospitals.map((hosp, index) => (
+          <div key={index} style={{ background: '#f8f9fa', border: '1px solid #ccc', padding: '10px', borderRadius: '5px', marginBottom: '10px' }}>
+            <h4 style={{ margin: '0 0 5px 0' }}>{hosp.name}</h4>
+            <p style={{ margin: '2px 0' }}>📍 Distance: <strong>{hosp.dist}</strong> | 🛏️ ICU Beds Left: <strong style={{ color: 'green' }}>{hosp.beds}</strong></p>
+            
+            <div style={{ marginTop: '8px' }}>
+              <a 
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hosp.name)}`} 
+                target="_blank" 
+                rel="noreferrer"
+                style={{ background: '#007bff', color: '#fff', padding: '5px 10px', textDecoration: 'none', borderRadius: '4px', marginRight: '8px', fontSize: '14px' }}
+              >
+                🗺️ Navigate Map
+              </a>
+              
+              <a 
+                href={`tel:${hosp.phone}`} 
+                style={{ background: '#28a745', color: '#fff', padding: '5px 10px', textDecoration: 'none', borderRadius: '4px', fontSize: '14px' }}
+              >
+                📞 Call Hospital
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default FindNearbyHospital;

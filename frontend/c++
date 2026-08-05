@@ -1,0 +1,52 @@
+import React, { useState } from 'react';
+
+// USE CASE 3: View Emergency Reports & PDF Generator (Madhan's Module)
+function EmergencyReports() {
+  const [formData, setFormData] = useState({
+    patientName: '',
+    admitDateTime: '',
+    dischargeDateTime: '',
+    doctorName: ''
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleDownloadPDF = (e) => {
+    e.preventDefault();
+    window.print();
+  };
+
+  return (
+    <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '8px', margin: '15px' }}>
+      <h2>📋 Use Case 3: Emergency Reports & Summary</h2>
+      
+      {/* 1. PDF Discharge Summary Feature */}
+      <form onSubmit={handleDownloadPDF} style={{ background: '#f8f9fa', padding: '15px', borderRadius: '5px' }}>
+        <h4>Generate Discharge Summary PDF</h4>
+        <input type="text" name="patientName" placeholder="Patient Name" onChange={handleChange} required style={inputStyle} /><br/>
+        <label>Admit Date & Time:</label><br/>
+        <input type="datetime-local" name="admitDateTime" onChange={handleChange} required style={inputStyle} /><br/>
+        <label>Return/Discharge Date & Time:</label><br/>
+        <input type="datetime-local" name="dischargeDateTime" onChange={handleChange} style={inputStyle} /><br/>
+        
+        <button type="submit" style={{ padding: '8px 15px', background: '#28a745', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+          📄 Export PDF Report
+        </button>
+      </form>
+
+      {/* 2. Live Preview Section */}
+      <div style={{ marginTop: '15px', background: '#fff', padding: '10px', border: '1px dashed #666' }}>
+        <h5>Report Details Preview:</h5>
+        <p><strong>Patient:</strong> {formData.patientName || 'N/A'}</p>
+        <p><strong>Admit:</strong> {formData.admitDateTime || 'N/A'}</p>
+        <p><strong>Discharged:</strong> {formData.dischargeDateTime || 'N/A'}</p>
+      </div>
+    </div>
+  );
+}
+
+const inputStyle = { margin: '5px 0', padding: '6px', width: '90%' };
+
+export default EmergencyReports;
