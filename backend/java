@@ -68,6 +68,6 @@ function SendEmergencyAlert() {
   );
 }
 console.log("emergency ai system");
-console.log("successfully send report";)
+console.log("successfully send report");
 
 export default SendEmergencyAlert;
