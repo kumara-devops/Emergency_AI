@@ -8,4 +8,3 @@ response = client.models.generate_content(
 )
 
 print(response.text)
-print(thanks.text)
