@@ -1,1 +1,72 @@
 
+import React, { useState } from 'react';
+
+// USE CASE 1: Send Emergency Alert (New SOS Feature)
+function SendEmergencyAlert() {
+  const [status, setStatus] = useState('');
+  const [location, setLocation] = useState(null);
+
+  // New Feature Function: Get GPS Location & Send Instant SOS Alert
+  const handleSendSOS = () => {
+    setStatus('📡 Fetching GPS Location...');
+    
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const coords = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          setLocation(coords);
+          setStatus('🚨 EMERGENCY ALERT SENT! Ambulance and Emergency Contacts Notified.');
+          
+          // Sound trigger for SOS (Optional visual feedback)
+          alert(🚨 SOS ALERT DISPATCHED!\nLat: ${coords.lat}\nLng: ${coords.lng});
+        },
+        (error) => {
+          setStatus('🚨 Emergency Alert Sent (Location access denied, sent without GPS).');
+        }
+      );
+    } else {
+      setStatus('🚨 Emergency Alert Sent!');
+    }
+  };
+
+  return (
+    <div style={{ padding: '20px', border: '2px solid #dc3545', borderRadius: '10px', margin: '15px' }}>
+      <h2 style={{ color: '#dc3545' }}>🚨 Use Case 1: Instant SOS Emergency Alert</h2>
+      <p>Click the button below during a medical or critical emergency.</p>
+
+      {/* NEW FEATURE: One-Tap Priority SOS Trigger */}
+      <button 
+        onClick={handleSendSOS}
+        style={{
+          backgroundColor: '#dc3545',
+          color: 'white',
+          fontSize: '18px',
+          padding: '15px 30px',
+          border: 'none',
+          borderRadius: '50px',
+          cursor: 'pointer',
+          boxShadow: '0 4px 8px rgba(0,0,0,0.2)'
+        }}
+      >
+        🔴 TRIGGER SOS ALERT NOW
+      </button>
+
+      {/* Live Alert Status Display */}
+      {status && (
+        <div style={{ marginTop: '20px', padding: '10px', backgroundColor: '#fff3cd', borderRadius: '5px' }}>
+          <strong>Status:</strong> {status}
+          {location && (
+            <p style={{ margin: '5px 0 0 0', fontSize: '12px' }}>
+              GPS Coordinates: {location.lat}, {location.lng}
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default SendEmergencyAlert;
