@@ -67,5 +67,7 @@ function SendEmergencyAlert() {
     </div>
   );
 }
+console.log("emergency ai system");
+console.log("successfully send report";)
 
 export default SendEmergencyAlert;
