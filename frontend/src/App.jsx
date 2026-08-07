@@ -127,6 +127,3 @@ function App() {
 }
 
 export default App;
-print("successfully report send")
-console.log("emergency ai system");
-console.log("successfully send report";)
