@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emergency-ai-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: emergency-ai-backend
+  template:
+    metadata:
+      labels:
+        app: emergency-ai-backend
+    spec:
+      containers:
+        - name: backend
+          image: emergency-ai-backend:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
